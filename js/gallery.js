@@ -101,12 +101,10 @@ images.forEach(image => {
 
 // Делегування та події
 
-galleryContainer.addEventListener('click', (event) => {
-
+galleryContainer.addEventListener('click', event => {
     event.preventDefault();
 
-    if (event.target.nodeName === "IMG") {
-
+    if (event.target.nodeName === 'IMG') {
         const originalSrc = event.target.getAttribute('data-source');
         const description = event.target.alt;
 
@@ -126,11 +124,10 @@ galleryContainer.addEventListener('click', (event) => {
             {
                 onClose: () => {
                     window.removeEventListener('keydown', handleKeyDown);
-                }
+                },
             },
         );
 
         instance.show();
-
     }
 });
