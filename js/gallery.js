@@ -111,19 +111,26 @@ galleryContainer.addEventListener('click', (event) => {
         const description = event.target.alt;
 
         const instance = basicLightbox.create(
-            `<img src="${originalSrc}" alt="${description}" width="1112" height="640">`
+            `<img src="${originalSrc}" alt="${description}" width="1112" height="640">`,
+            {
+                onShow: (instance) => {
+                    window.addEventListener('keydown', handleKeyDown);
+
+                    function handleKeyDown(event) {
+                        if (event.key === 'Escape') {
+                            instance.close();
+                        }
+                    }
+                },
+            },
+            {
+                onClose: () => {
+                    window.removeEventListener('keydown', handleKeyDown);
+                }
+            },
         );
 
         instance.show();
 
-        function handleKeyDown(event) {
-            if (event.key === 'Escape') {
-                instance.close();
-                window.removeEventListener('keydown', handleKeyDown);
-            }
-        }
-
-        window.addEventListener('keydown', handleKeyDown);
     }
 });
-
