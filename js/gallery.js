@@ -100,6 +100,9 @@ images.forEach(image => {
 });
 
 // Делегування та події
+let funcResult;
+
+
 
 galleryContainer.addEventListener('click', event => {
     event.preventDefault();
@@ -108,24 +111,22 @@ galleryContainer.addEventListener('click', event => {
         const originalSrc = event.target.getAttribute('data-source');
         const description = event.target.alt;
 
+        function handleKeyDown(event) {
+            if (event.key === 'Escape') {
+                instance.close();
+            }
+        }
+
         const instance = basicLightbox.create(
             `<img src="${originalSrc}" alt="${description}" width="1112" height="640">`,
             {
-                onShow: (instance) => {
+                onShow: () => {
                     window.addEventListener('keydown', handleKeyDown);
-
-                    function handleKeyDown(event) {
-                        if (event.key === 'Escape') {
-                            instance.close();
-                        }
-                    }
                 },
-            },
-            {
                 onClose: () => {
                     window.removeEventListener('keydown', handleKeyDown);
                 },
-            },
+            }
         );
 
         instance.show();
